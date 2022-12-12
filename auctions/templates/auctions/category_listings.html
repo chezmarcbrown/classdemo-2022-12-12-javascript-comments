@@ -1,0 +1,17 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block main %}
+    
+<h2>{{banner}}</h2>
+
+<button onclick="location.href='{% url "delete-category" category.id %}'">
+    Delete Category
+ </button>
+ <button onclick="location.href='{% url "update-category" category.id %}'">
+    Edit Category
+ </button>
+ 
+{% include "auctions/listings_table.html" %}
+
+{% endblock %}

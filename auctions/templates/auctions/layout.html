@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Auctions{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="https://cdn.simplecss.org/simple.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'auctions/uaa490styles.css' %}" >
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    </head>
+    <body>
+        <header>
+            <h1>Auctions "R" Us</h1>
+            <nav>
+                <span>
+                    <a href="{% url 'index' %}">Active Listings -
+                            <span id="al" class="watcher-badge">{{ user.active_listings.count }} </span></a>
+                    <a href="{% url 'categories' %}">Categories</a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'my-listings' %}">My Listings - 
+                            <span id="ml" class="watcher-badge"> {{ user.my_listings.all.count }} </span></a>
+                        <a href="{% url 'my-watchlist' %}">My Watchlist -
+                            <span id="mw" class="watcher-badge"> {{ user.watched_listings.all|length }}</span></a>
+                        <a href="{% url 'create-listing' %}">Create Listing</a>
+                    {% endif %}
+                </span>
+                <span>
+                    {% if user.is_authenticated %}
+                        Welcome <strong>{{ user.username }}!</strong>
+                        <a href="{% url 'logout' %}">Log Out</a>
+                    {% else %}
+                        <a href="{% url 'login' %}">Log In</a>
+                        <a href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                </span>
+            </nav>
+        </header>
+        <main>
+            {% for m in messages %}
+                <h2 class="{{m.tags}}">{{m}}</h2>
+            {% endfor %}
+    
+            {% block main %}
+            {% endblock %}
+        </main>
+        <script src="{% static 'auctions/auctions.js' %}"></script>
+
+     </body>
+</html>

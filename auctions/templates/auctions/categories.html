@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block main %}
+
+<h2>Categories</h2>
+
+<button onclick="location.href='{% url "create-category" %}'">
+    New Category
+ </button>
+ 
+<article>
+    {% for c in categories %}
+        <section>
+            <span style="display:inline-block;width:200px;vertical-align:middle;">
+            {% if c.image %}
+                <img src="{{ c.image.url }}">
+            {% endif %}
+            </span>
+            <a style="font-size:150%;" href="{% url 'category' c.id %}">{{ c.name }}</a>
+        </section>
+    {% endfor %}
+</article>
+
+
+{% endblock %}

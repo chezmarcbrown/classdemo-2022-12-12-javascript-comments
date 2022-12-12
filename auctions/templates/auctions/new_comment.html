@@ -1,0 +1,79 @@
+
+{% extends "auctions/layout.html" %}
+
+{% block main %}
+<script>
+
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+document.addEventListener('DOMContentLoaded', ()=> {
+
+    document.querySelector('form').onsubmit = ()=> {
+        id = document.querySelector('form').id;
+        const comment = document.querySelector('#id_comment').value;
+        document.querySelector('#id_comment').value = '';
+        fetch(`/api/comment/${id}`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": getCookie("csrftoken"),
+            },
+            body: JSON.stringify({
+                'comment': comment
+            })
+        })
+        .then(response => response.json())
+        .then(data => addComment(data))
+        .catch(error => {
+            console.log("*** api/comment error **", error);
+        })
+        return false;
+    }
+})
+
+function addComment(data) {
+    const section = document.createElement('section');
+    section.classList.add("comments");
+
+    const p1 = document.createElement('p');
+    p1.innerHTML = data["comment"];
+
+    const p2 = document.createElement('p');
+    p2.style.fontSize = "small";
+    p2.innerHTML = `Posted by <strong>${data["commentor"]}</strong> at ${data["created_at"]}`
+
+    section.append(p1);
+    section.append(p2);
+    document.querySelector('article').prepend(section);
+}
+
+</script>
+
+
+<h2>Commenting on {{ listing.title }}</h2>
+
+
+<form id="{{listing.id}}" method="POST">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <div>
+        <input type="submit" name="cancel" value="Cancel" formnovalidate="formnovalidate" 
+            onClick="window.location = '{% url "listing" listing.id %}'">
+        <input type="reset" name="reset" value="Reset">
+        <input type="submit" name="submit" value="Add Comment">
+    </div>
+</form>
+
+<article class="comments">
+    {% for c in listing.comments.all reversed %}
+        <section class="comments">
+            <p>{{ c.comment }}</p>
+            <p style="font-size:small">Posted by <strong>{{c.commentor}}</strong> at {{c.created_at}}</p>
+        </section>
+    {% endfor %}
+</article>
+
+{% endblock %}

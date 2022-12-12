@@ -1,0 +1,121 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 18px;
+}
+
+body > header { 
+  padding: 0 0.5rem .75rem 0.5rem;
+}
+
+body {
+  grid-template-columns: 10% 80% 10%;
+}
+
+main {
+  padding-top: 0px;
+  padding-bottom: 50px;
+
+}
+.form-control {
+  width: 50%;
+}
+
+.success { 
+  color:green;
+}
+
+.errorlist, .error {
+  color: red;
+}
+
+
+.listing-description, .listing-categories {
+  border: 1px solid black;
+  font-style: italic;
+  background-color: seashell;
+  padding: .5rem;
+}
+
+.listing-categories {
+  border-top: 0px;
+  font-size: small;
+  font-style: normal;
+}
+
+.listing-category {
+  font-weight: bold;
+}
+
+.listing-button {
+  width: 175px;
+}
+
+article.comments {
+  font-size:smaller;
+  padding:0px;
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: aliceblue;
+}
+
+section.comments {
+  padding: 0px 0px 10px 10px;
+  margin: 0px;
+}
+
+article.listings {
+  padding: 0px 15px 0px 15px;
+}
+
+section.listings {
+  padding:0px;
+  margin: 0px;
+}
+
+img.toggle_watchlist {
+  height: 30px;
+  margin: 4px;
+  vertical-align: middle;
+}
+
+img.toggle_watchlist:hover {
+  cursor: grab;
+  border: 1px solid;
+  filter: brightness(1.4);
+  color: red;
+
+}
+
+.watcher-badge {
+  font-size: small;
+  background-color: blue;
+  color:white;
+  padding: 3px;
+  border-radius: 6px;
+}
+ 
+span.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' 200,
+  'opsz' 48;
+  font-size: inherit;
+}
+
+.toggler:hover {
+  color: green;
+
+  font-variation-settings:'wght' 700, 'FILL' 0;
+}
+
+.invis.material-symbols-outlined {
+  color: white;
+}
+
+
+.filled.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1;
+}

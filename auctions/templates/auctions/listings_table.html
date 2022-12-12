@@ -1,0 +1,32 @@
+{% load static %}
+<!-- included by a template that wants to show listings. assumes context variable {{listings}}
+-->
+<article class="listings">
+    {% for listing in listings %}
+        <section class="listings">
+            <h4>
+                {% if user.is_authenticated %}
+                    <img class="toggle_watchlist" data-listing_id="{{listing.id}}" src="{% static 'auctions/hollow-star.png' %}">
+                {% endif %}
+                {% if listing.image %}
+                    <img src="{{ listing.image.url }}" style="vertical-align:middle;width:50px;margin-right:10px" >
+                {% endif %}
+                <a href="{% url 'listing' listing.id %}"">{{listing.title}}</a>
+                | <small>
+                    High Bid: ${{ listing.high_bid_amount }}
+                    {% if not listing.active %}
+                        - Auction Closed
+                    {% endif %}
+                </small>
+            </h4>
+            <!--
+            <div class="listing-description">{{ listing.description }}</div>
+            <p>
+                {{listing.watchers.all | length }} watcher{{ listing.watchers.all|pluralize:"s"}}
+                | {{listing.bids.all | length }} bidder{{ listing.bids.all|pluralize:"s"}}
+                | {{listing.comments.all | length }} comment{{ listing.comments.all|pluralize:"s"}}
+            </p>
+            -->
+        </section>
+    {% endfor %}
+</article>

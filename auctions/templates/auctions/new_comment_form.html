@@ -1,0 +1,9 @@
+<form action="{% url 'add-comment' listing.id %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_table }}
+    <div>
+        <input type="submit" name="cancel" value="Cancel" formnovalidate="formnovalidate">
+        <input type="reset" name="reset" value="Reset">
+        <input type="submit" name="submit" value="Add Comment">
+    </div>
+</form>
